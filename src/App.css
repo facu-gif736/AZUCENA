@@ -1,184 +1,1017 @@
-.counter {
-  font-size: 16px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  color: var(--accent);
-  background: var(--accent-bg);
-  border: 2px solid transparent;
-  transition: border-color 0.3s;
-  margin-bottom: 24px;
-
-  &:hover {
-    border-color: var(--accent-border);
-  }
-  &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
+* {
+  box-sizing: border-box;
 }
 
-.hero {
-  position: relative;
-
-  .base,
-  .framework,
-  .vite {
-    inset-inline: 0;
-    margin: 0 auto;
-  }
-
-  .base {
-    width: 170px;
-    position: relative;
-    z-index: 0;
-  }
-
-  .framework,
-  .vite {
-    position: absolute;
-  }
-
-  .framework {
-    z-index: 1;
-    top: 34px;
-    height: 28px;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
-      scale(1.4);
-  }
-
-  .vite {
-    z-index: 0;
-    top: 107px;
-    height: 26px;
-    width: auto;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
-      scale(0.8);
-  }
+body {
+  margin: 0;
+  font-family: "Didot", "Bodoni MT", "Times New Roman", serif;
+  color: #333;
+  background-color: #faf9f6;
+  overflow-x: hidden;
 }
 
-#center {
+.app-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 25px;
-  place-content: center;
-  place-items: center;
-  flex-grow: 1;
+  min-height: 100vh;
+}
 
-  @media (max-width: 1024px) {
-    padding: 32px 20px 24px;
-    gap: 18px;
+.main-content {
+  flex: 1;
+}
+
+/* NOTIFICACIÓN TOAST */
+.toast-notification {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background-color: #333;
+  color: #fff;
+  padding: 14px 24px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  border-left: 4px solid #9b8b5a;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  z-index: 9999;
+  animation: fadeInUp 0.25s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-#next-steps {
+/* =================================================
+   HEADER Y NAVEGACIÓN
+================================================= */
+.header {
+  padding: 18px 50px;
+  background: white;
+  border-bottom: 1px solid #ddd;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar {
+  max-width: 1400px;
+  margin: 0 auto;
   display: flex;
-  border-top: 1px solid var(--border);
-  text-align: left;
-
-  & > div {
-    flex: 1 1 0;
-    padding: 32px;
-    @media (max-width: 1024px) {
-      padding: 24px 20px;
-    }
-  }
-
-  .icon {
-    margin-bottom: 16px;
-    width: 22px;
-    height: 22px;
-  }
-
-  @media (max-width: 1024px) {
-    flex-direction: column;
-    text-align: center;
-  }
+  justify-content: space-between;
+  align-items: center;
 }
 
-#docs {
-  border-right: 1px solid var(--border);
-
-  @media (max-width: 1024px) {
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-  }
+.logo {
+  cursor: pointer;
 }
 
-#next-steps ul {
+.logo img {
+  width: 145px;
+  height: auto;
+  display: block;
+}
+
+.logo-fallback {
+  font-family: "Playfair Display", serif;
+  font-size: 26px;
+  letter-spacing: 4px;
+  font-weight: 700;
+  color: #333;
+}
+
+.nav-links {
   list-style: none;
-  padding: 0;
   display: flex;
-  gap: 8px;
-  margin: 32px 0 0;
-
-  .logo {
-    height: 18px;
-  }
-
-  a {
-    color: var(--text-h);
-    font-size: 16px;
-    border-radius: 6px;
-    background: var(--social-bg);
-    display: flex;
-    padding: 6px 12px;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    transition: box-shadow 0.3s;
-
-    &:hover {
-      box-shadow: var(--shadow);
-    }
-    .button-icon {
-      height: 18px;
-      width: 18px;
-    }
-  }
-
-  @media (max-width: 1024px) {
-    margin-top: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
-
-    li {
-      flex: 1 1 calc(50% - 8px);
-    }
-
-    a {
-      width: 100%;
-      justify-content: center;
-      box-sizing: border-box;
-    }
-  }
+  gap: 45px;
+  padding: 0;
+  margin: 0;
 }
 
-#spacer {
-  height: 88px;
-  border-top: 1px solid var(--border);
-  @media (max-width: 1024px) {
-    height: 48px;
-  }
+.nav-links li button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #333;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 2px;
+  padding: 6px 0;
+  transition: color 0.2s;
 }
 
-.ticks {
+.nav-links li button:hover {
+  color: #9b8b5a;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.cart-icon {
+  font-size: 22px;
   position: relative;
+  cursor: pointer;
+  user-select: none;
+}
+
+.cart-count {
+  position: absolute;
+  top: -8px;
+  right: -12px;
+  background-color: #9b8b5a;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 11px;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 700;
+  line-height: 1.2;
+  min-width: 18px;
+  text-align: center;
+}
+
+.hamburger-btn {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 26px;
+  color: #333;
+  cursor: pointer;
+}
+
+/* =================================================
+   HERO SECTION
+================================================= */
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 50px;
+  padding: 80px 100px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.hero-text {
+  flex: 1;
+  max-width: 520px;
+  text-align: left;
+}
+
+.hero-text h2 {
+  color: #9b8b5a;
+  font-size: 14px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.hero-text h1 {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(38px, 5vw, 60px);
+  margin-top: 0;
+  margin-bottom: 24px;
+}
+
+.hero-text p {
+  font-family: "Open Sans", sans-serif;
+  font-size: 15px;
+  line-height: 1.75;
+  color: #444;
+}
+
+.btn {
+  margin-top: 25px;
+  background: none;
+  border: 1px solid #333;
+  padding: 13px 28px;
+  cursor: pointer;
+  font-size: 12px;
+  font-family: "Open Sans", sans-serif;
+  color: #333;
+  display: inline-block;
+  letter-spacing: 1.5px;
+  transition: all 0.3s ease;
+}
+
+.btn:hover:not(:disabled) {
+  background-color: #333;
+  color: white;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.hero-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-image img {
   width: 100%;
+  max-width: 420px;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
 
-  &::before,
-  &::after {
-    content: '';
+/* =================================================
+   CUADRÍCULA DE CATEGORÍAS (2x2)
+================================================= */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  padding: 0 100px;
+  margin: 40px auto 80px auto;
+  max-width: 1400px;
+}
+
+.grid.wide-grid {
+  max-width: 1150px;
+  padding: 0 40px;
+}
+
+.grid > div > a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 440px;
+  width: 100%;
+  text-decoration: none;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.35s ease;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #d9d4c7;
+}
+
+.grid > div > a::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.22);
+  z-index: 1;
+  transition: background-color 0.3s ease;
+}
+
+.grid > div > a:hover {
+  transform: scale(1.02);
+}
+
+.grid > div > a:hover::before {
+  background-color: rgba(0, 0, 0, 0.38);
+}
+
+.grid h3 {
+  color: white;
+  font-size: clamp(20px, 2.5vw, 28px);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-weight: 700;
+  z-index: 2;
+  margin: 0;
+  padding: 0 15px;
+  text-align: center;
+  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.45);
+}
+
+.item-1 a,
+.item-2 a,
+.item-3 a,
+.item-4 a {
+  background-image: url("/img/nos.png.png");
+}
+
+/* =================================================
+   CATÁLOGO DE PRODUCTOS
+================================================= */
+.catalogue-page {
+  padding: 60px 50px;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.catalogue-title {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(26px, 3.5vw, 36px);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 45px;
+  color: #333;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.product-item {
+  display: block;
+  text-decoration: none;
+  color: #333;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.product-item:hover {
+  opacity: 0.9;
+  transform: translateY(-4px);
+}
+
+.product-image-container {
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 100%;
+  height: 0;
+  margin-bottom: 14px;
+  background-color: #f0eee9;
+}
+
+.product-image-container img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.product-name {
+  font-family: "Open Sans", sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  margin: 6px 0;
+}
+
+.product-price {
+  font-family: "Didot", serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #9b8b5a;
+  margin: 4px 0 0 0;
+}
+
+/* =================================================
+   DETALLE DE PRODUCTO
+================================================= */
+.product-detail-page {
+  padding: 50px 80px 80px;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.back-link {
+  background: none;
+  border: none;
+  font-family: "Open Sans", sans-serif;
+  font-size: 13px;
+  color: #666;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 30px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.back-link:hover {
+  color: #9b8b5a;
+}
+
+.product-detail-container {
+  display: flex;
+  gap: 60px;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.product-info {
+  flex: 1;
+  max-width: 520px;
+}
+
+.product-gallery {
+  flex: 1;
+  max-width: 520px;
+  width: 100%;
+}
+
+.main-image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+  margin-bottom: 15px;
+  background-color: #f0eee9;
+}
+
+.thumbnails {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.thumbnail-item {
+  width: 78px;
+  height: 78px;
+  object-fit: cover;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  opacity: 0.75;
+  transition: all 0.25s;
+}
+
+.thumbnail-item:hover,
+.thumbnail-item.active {
+  opacity: 1;
+  border-color: #9b8b5a;
+}
+
+.product-title {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(26px, 3vw, 34px);
+  margin: 0 0 10px 0;
+  letter-spacing: 1.5px;
+}
+
+.product-price-detail {
+  font-family: "Open Sans", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: #9b8b5a;
+  margin-bottom: 25px;
+}
+
+.product-description {
+  font-family: "Open Sans", sans-serif;
+  font-size: 15px;
+  line-height: 1.75;
+  color: #444;
+  margin-bottom: 25px;
+}
+
+.size-selector {
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+}
+
+.size-selector select {
+  padding: 9px 14px;
+  border: 1px solid #ccc;
+  background: white;
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+}
+
+.add-to-cart-btn {
+  width: 100%;
+  padding: 15px 0;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  background-color: #333;
+  color: white;
+  border: 1px solid #333;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #000;
+}
+
+.accordion-info {
+  margin-top: 35px;
+  border-top: 1px solid #ddd;
+}
+
+.accordion-info h3 {
+  font-family: "Open Sans", sans-serif;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 15px 0;
+  margin: 0;
+  cursor: pointer;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.accordion-content {
+  padding: 15px 0;
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #555;
+  border-bottom: 1px solid #ddd;
+}
+
+/* =================================================
+   SOBRE NOSOTROS Y CONTACTO
+================================================= */
+.about-page,
+.contact-page,
+.collection-page {
+  padding: 70px 80px;
+  max-width: 1250px;
+  margin: 0 auto;
+}
+
+.collection-page {
+  text-align: center;
+}
+
+.collection-title {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(28px, 4vw, 44px);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.collection-intro {
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 50px;
+}
+
+.about-content,
+.contact-container {
+  display: flex;
+  gap: 60px;
+  align-items: flex-start;
+}
+
+.about-image-container,
+.about-text-container,
+.contact-info-details,
+.contact-form-wrapper {
+  flex: 1;
+  width: 100%;
+}
+
+.about-main-image {
+  width: 100%;
+  max-height: 540px;
+  object-fit: cover;
+  display: block;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+}
+
+.about-subtitle {
+  font-size: 13px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #9b8b5a;
+  margin-bottom: 8px;
+}
+
+.about-title,
+.contact-title {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(28px, 3.5vw, 40px);
+  margin: 0 0 25px 0;
+  line-height: 1.25;
+}
+
+.about-paragraph,
+.contact-slogan {
+  font-family: "Open Sans", sans-serif;
+  font-size: 15px;
+  line-height: 1.8;
+  margin-bottom: 22px;
+  color: #555;
+}
+
+.signature {
+  margin-top: 35px;
+  border-top: 1px solid #ddd;
+  padding-top: 15px;
+}
+
+.signature p {
+  font-style: italic;
+  color: #9b8b5a;
+  font-family: "Playfair Display", serif;
+  font-size: 18px;
+}
+
+.info-group {
+  margin-bottom: 26px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.info-group h3 {
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #9b8b5a;
+  margin-bottom: 6px;
+}
+
+.info-group p {
+  font-size: 15px;
+  margin: 4px 0;
+  font-family: "Open Sans", sans-serif;
+}
+
+.contact-form-wrapper {
+  background-color: white;
+  padding: 36px;
+  border: 1px solid #eee;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+}
+
+.form-heading {
+  font-family: "Playfair Display", serif;
+  font-size: 26px;
+  margin-top: 0;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-family: "Open Sans", sans-serif;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 11px;
+  border: 1px solid #ccc;
+  background-color: #fafafa;
+  font-size: 15px;
+  font-family: "Open Sans", sans-serif;
+  outline: none;
+  transition: border-color 0.25s;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: #9b8b5a;
+}
+
+.send-btn {
+  width: 100%;
+  padding: 14px 0;
+  font-size: 13px;
+  font-weight: 700;
+  background-color: #333;
+  color: white;
+  border: 1px solid #333;
+}
+
+/* =================================================
+   CARRITO DE COMPRAS
+================================================= */
+.cart-page {
+  padding: 60px 50px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.cart-heading {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(26px, 3.5vw, 38px);
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.cart-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 40px;
+}
+
+.cart-items-list {
+  border-right: 1px solid #ddd;
+  padding-right: 35px;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  padding: 20px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.cart-item-details {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.cart-item-details img {
+  width: 76px;
+  height: 76px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.item-info h4 {
+  font-family: "Playfair Display", serif;
+  margin: 0 0 6px 0;
+  font-size: 16px;
+}
+
+.item-info p {
+  color: #777;
+  font-size: 14px;
+  margin: 0;
+  font-family: "Open Sans", sans-serif;
+}
+
+.cart-item-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.quantity-controls button {
+  background: none;
+  border: 1px solid #ccc;
+  color: #333;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.item-price-total {
+  font-weight: 700;
+  min-width: 95px;
+  text-align: right;
+  margin: 0;
+}
+
+.remove-item {
+  background: none;
+  border: none;
+  color: #9b8b5a;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.cart-summary {
+  background-color: #f3f1ec;
+  padding: 28px;
+  border-radius: 6px;
+  height: fit-content;
+}
+
+.summary-line {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  border-bottom: 1px dashed #ccc;
+  padding-bottom: 14px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+}
+
+.total-line {
+  border-top: 1px solid #333;
+  border-bottom: none;
+  padding-top: 18px;
+}
+
+.total-line h3 {
+  font-size: 19px;
+  margin: 0;
+}
+
+.checkout-btn {
+  width: 100%;
+  padding: 15px;
+  background-color: #9b8b5a;
+  border: none;
+  color: white;
+  font-weight: 700;
+}
+
+.checkout-btn:hover:not(:disabled) {
+  background-color: #7a6e4e;
+}
+
+.cart-empty-message {
+  text-align: center;
+  padding: 45px 0;
+  color: #777;
+  font-family: "Open Sans", sans-serif;
+}
+
+/* FOOTER */
+.footer {
+  background: white;
+  text-align: center;
+  padding: 22px;
+  font-size: 14px;
+  border-top: 1px solid #ddd;
+}
+
+/* =================================================
+   MEDIA QUERIES (100% RESPONSIVE)
+================================================= */
+
+/* Tablets y Notebooks chicas */
+@media (max-width: 1024px) {
+  .header {
+    padding: 16px 30px;
+  }
+
+  .hero {
+    padding: 50px 40px;
+    gap: 35px;
+  }
+
+  .grid {
+    padding: 0 40px;
+    gap: 20px;
+  }
+
+  .grid > div > a {
+    height: 340px;
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .product-detail-page,
+  .about-page,
+  .contact-page,
+  .collection-page {
+    padding: 50px 40px;
+  }
+
+  .product-detail-container,
+  .about-content,
+  .contact-container {
+    gap: 40px;
+  }
+}
+
+/* Celulares y Tablets verticales */
+@media (max-width: 768px) {
+  .hamburger-btn {
+    display: block;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
     position: absolute;
-    top: -4.5px;
-    border: 5px solid transparent;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    padding: 20px 30px;
+    gap: 18px;
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06);
   }
 
-  &::before {
-    left: 0;
-    border-left-color: var(--border);
+  .nav-links.nav-active {
+    display: flex;
   }
-  &::after {
-    right: 0;
-    border-right-color: var(--border);
+
+  .hero {
+    flex-direction: column-reverse;
+    text-align: center;
+    padding: 40px 24px;
+  }
+
+  .hero-text {
+    text-align: center;
+    max-width: 100%;
+  }
+
+  .grid,
+  .grid.wide-grid {
+    grid-template-columns: 1fr;
+    padding: 0 24px;
+    margin-bottom: 50px;
+  }
+
+  .grid > div > a {
+    height: 280px;
+  }
+
+  .catalogue-page,
+  .product-detail-page,
+  .about-page,
+  .contact-page,
+  .collection-page,
+  .cart-page {
+    padding: 35px 20px;
+  }
+
+  /* En móvil mostramos primero la foto del producto y abajo la info de compra */
+  .product-detail-container {
+    flex-direction: column-reverse;
+    gap: 30px;
+  }
+
+  .product-info,
+  .product-gallery {
+    max-width: 100%;
+  }
+
+  .about-content,
+  .contact-container {
+    flex-direction: column;
+    gap: 35px;
+  }
+
+  .about-main-image {
+    max-height: 380px;
+  }
+
+  .cart-container {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .cart-items-list {
+    border-right: none;
+    padding-right: 0;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 20px;
+  }
+}
+
+/* Celulares chicos */
+@media (max-width: 480px) {
+  .header {
+    padding: 14px 18px;
+  }
+
+  .logo img {
+    width: 120px;
+  }
+
+  .products-grid {
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+
+  .cart-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cart-item-actions {
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+
+  .contact-form-wrapper {
+    padding: 24px 18px;
   }
 }
